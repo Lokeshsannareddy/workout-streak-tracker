@@ -1,7 +1,7 @@
 // /api/debug.js
 const axios = require('axios/dist/node/axios.cjs');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   console.log('🔧 DebugEndpoint: Debug endpoint called', {
     method: req.method,
     url: req.url,

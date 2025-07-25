@@ -1,7 +1,7 @@
 // /api/test.js
 const axios = require('axios/dist/node/axios.cjs');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const startTime = Date.now();
   console.log('🔧 TestEndpoint: Test endpoint called', {
     method: req.method,
