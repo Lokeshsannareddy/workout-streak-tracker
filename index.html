@@ -515,7 +515,10 @@
                 const clientId = 'a12fa42e-08c1-4b22-a512-7ca57e4ff3b4'; // Replace with your WHOOP client ID
                 const redirectUri = 'https://workout-streak-tracker.vercel.app/api/oauthcallback'; // Your OAuth callback URL
                 const scope = 'read:workout';
-                const oauthUrl = `https://api.prod.whoop.com/oauth/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code`;
+                const state = Math.random().toString(36).substring(2) + Date.now().toString(36);
+                localStorage.setItem('oauth_state', state);
+
+                const oauthUrl = `https://api.prod.whoop.com/oauth/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code&state=${state}`;
                 window.location.href = oauthUrl;
             }
 
