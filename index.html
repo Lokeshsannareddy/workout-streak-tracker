@@ -503,6 +503,19 @@
                 this.webhookChannel = new BroadcastChannel('whoop-webhook');
             }
 
+            loadSettingsUI() {
+                console.log('🔧 WHOOPWorkoutTracker: Loading settings into UI');
+                try {
+                    document.getElementById('minStrain').value = this.settings.minStrain;
+                    document.getElementById('minDuration').value = this.settings.minDuration;
+                    document.getElementById('includeAuto').checked = this.settings.includeAuto;
+                    document.getElementById('requireManual').checked = this.settings.requireManual;
+                    console.log('🔧 WHOOPWorkoutTracker: Settings loaded into UI successfully', this.settings);
+                } catch (error) {
+                    console.error('🔧 WHOOPWorkoutTracker: Error loading settings into UI', error);
+                }
+            }
+
             updateSettings() {
                 console.log('🔧 WHOOPWorkoutTracker: Updating settings');
                 this.settings = {
