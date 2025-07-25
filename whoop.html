@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WHOOP Workout Streak Tracker</title>
-    
-    <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#4F46E5">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="WHOOP Streak">
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiV0hPT1AgV29ya291dCBTdHJlYWsgVHJhY2tlciIsInNob3J0X25hbWUiOiJXSE9PUCBTdHJlYWsiLCJzdGFydF91cmwiOiIvIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZmZmZmZiIsInRoZW1lX2NvbG9yIjoiIzRGNDZFNSIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlNalFpSUdGMGRGOGlNalFpSUhabGNuTnBiMjQ5SWpFdU1TSWdlRzFzYm5NOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNabklpQjJhV1YzUW05NE9UQWdNREFnTWpRZ01qUWljblU5SWpVaUlHWnBiR3c5SWpSR05EWkZOU0krUEhCaGRHZ2daalVpVFY0cWMxZzROM0YyYWsxa09HOHZWMHBJUkZkRlQzTldWMWRXYjNOdVprNVNWbGxYVTA5alJrUm1Sazl2Y25oaGJGVmFiRGxoTFd0T05DczNhMms1WkhKV1pWSkZkR2hOTkhkelIybzNMeTl0YTJjelpUbFJZelJzTlVVek9VRkljRkI0TjNaeFZqWjZja0ZzU1hsdFNEa3JJaUJtYVd4c1BTSmpiR2t3TFdSbE9HSTBaalJoTlRJdE9HOXJJaTgrUEhCaGRHZ2daalVpUkZjMlMxUXJXRVpDU2xNMWNHbEdUMnRUYVVGSk9YTjBSMmNyTDB4UlltNVNkbEoyU1RGS2RHaDBhV2R6Um5WM1lqWmtWVGRNYlhCRVJVRjJRMVp1VG14NmVGaDRURFpYVGpCVWVYZGFhWE12VkdkNGEyWlViazlHVFVkelFtUkdVVlZ6YlRRNUwzb2lJR1pwYkd3OUluZG9hWFJsSTNnS01TOWNRbUU0UTF3M05qZHdQNm50dVM2akptWlBRaUJtYVd4c1BTSnpkSGx5YjJ0bElpQnpkSEp2YTJVdGQybGtkR2c5SWpJaUx6NDhMM04yWno0PSIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==">
-    
+    <link rel="manifest" href="data:application/json;base64, eyJuYW1lljoiV0hPT1AgV29ya291dCBTdHJlYWsgVHJhY2tl cilsInNob3J0X25hbWUiOiJXSE9PUCBTdHJIYWsiLCJzdGFydF91cmwiOilvliwiZGlzcGxheS16In N0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yljoil2ZmZmZmZilsInRoZW1IX2NvbG9yljoilz RGNDZFNSIsImljb25zljpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTYOLFBITjJae UIzYVdSMGFEMGINalFpSUdGMGRGOGINalFpSUhabGNuTnBiMjQ5SWpFdU1TSWdlRzFzY m5NOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNabklpQjJhV1YzUW05NE9U QWdNREFnTWpRZ01qUWIjblU5SWpVaUIHWnBiR3c5SWpSR05EWkZOU0krUEhCaGRHZ2da alVpVFY0cWMxZzROM0YyYWsxa09HOHZWMHBJUkZkRIQzTldWMWRXYjNOdVprNVNWbG XYVTA5alJrUm1Sazi2Y250aGJGVmFiRGxoTFd0T05DczNhMms1WkhKV1pWSkZkR2hOTkhke llybzNMeTIOYTJjelpUbFJZelJzTIVVek9VRkljRkI0TjNaeFZqWjZja0ZzU1hsdFNEa3JJaUJtYVd4c 1BTSmpiR2t3TFdSbE9HSTBaalJoTIRJdE9HOXJJaTgrUEhCaGRHZ2daalVpUkZjMIMXUXJXR VpDU2xNMWNHbEdUMnRUYVVGSk9YTjBSMmNyTDB4UlltNVNkbEoyU1RGS2RHaDBhV2R6 Um5WM1IqWmtWVGRNYIhCRVJVRjJRMVp1VG14NmVGaDRURFpYVGpCVWVYZGFhWE12 VkdkNGEyWIViazIHVFVkelFtUkdVVIZ6YIRRNUwzb2lJR1pwYkd3OUluZG9hWFJsSTNnS01TO WNRbUU0UTF3M05qZHdQNm50dVM2akptWIBRaUJtYVd4c1BTSnpkSGx5YjJ0bElpQnpkSEp 2YTJVdGQybGtkR2c5SWpJaUx6NDhMM04yWno0PSIsInNpemVzIjoiMTkyeDE5MilsInR5cGUi OiJpbWFnZS9zdmcreG1sIn1dfQ==">
     <style>
         * {
             margin: 0;
@@ -314,6 +311,7 @@
             display: none;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="container">
@@ -414,7 +412,6 @@
             <div id="errorMessage" class="error-message hidden"></div>
         </div>
     </div>
-
     <script>
         class WHOOPWorkoutTracker {
             constructor() {
@@ -424,7 +421,6 @@
                 this.settings = this.loadSettings();
                 this.init();
             }
-
             loadData() {
                 const saved = localStorage.getItem('workoutData');
                 return saved ? JSON.parse(saved) : {};
@@ -467,18 +463,15 @@
                 document.getElementById('connectButton').addEventListener('click', () => {
                     this.connectWHOOP();
                 });
-
                 document.getElementById('syncButton').addEventListener('click', () => {
                     this.syncWHOOPData();
                 });
-
                 // Settings event listeners
                 ['minStrain', 'minDuration', 'includeAuto', 'requireManual'].forEach(id => {
                     document.getElementById(id).addEventListener('change', (e) => {
                         this.updateSettings();
                     });
                 });
-
                 // Setup webhook listener for real-time updates
                 this.setupWebhookListener();
             }
@@ -486,25 +479,6 @@
             setupWebhookListener() {
                 // Listen for webhook data via BroadcastChannel (for cross-tab communication)
                 this.webhookChannel = new BroadcastChannel('whoop-webhook');
-                this.webhookChannel.addEventListener('message', (event) => {
-                    if (event.data.type === 'workout_update') {
-                        this.handleWebhookWorkout(event.data.workout);
-                    }
-                });
-
-                // Also listen for direct webhook calls if served from a webhook endpoint
-                window.addEventListener('message', (event) => {
-                    if (event.data.type === 'whoop_webhook' && event.data.event === 'workout.updated') {
-                        this.handleWebhookWorkout(event.data.data);
-                    }
-                });
-            }
-
-            loadSettingsUI() {
-                document.getElementById('minStrain').value = this.settings.minStrain;
-                document.getElementById('minDuration').value = this.settings.minDuration;
-                document.getElementById('includeAuto').checked = this.settings.includeAuto;
-                document.getElementById('requireManual').checked = this.settings.requireManual;
             }
 
             updateSettings() {
@@ -526,38 +500,23 @@
             showSyncSection() {
                 document.getElementById('authSection').classList.add('hidden');
                 document.getElementById('syncSection').classList.remove('hidden');
-                
                 const lastSync = localStorage.getItem('lastWhoopSync');
-                if (lastSync) {
-                    const date = new Date(lastSync);
-                    document.getElementById('lastSync').textContent = 
-                        `Last synced: ${date.toLocaleString()}`;
-                }
             }
 
             connectWHOOP() {
-                // WHOOP OAuth flow
-                const clientId = 'YOUR_WHOOP_CLIENT_ID'; // You'll need to register your app
-                const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
-                const scope = 'read:workout read:profile';
-                
-                const authUrl = `https://api.prod.whoop.com/oauth/oauth2/auth/?` +
-                    `client_id=${clientId}&` +
-                    `redirect_uri=${redirectUri}&` +
-                    `response_type=code&` +
-                    `scope=${scope}`;
-
-                // For demo purposes, we'll simulate the connection
-                this.showError('Demo Mode: WHOOP connection simulated. In production, you would redirect to WHOOP OAuth.');
-                
-                // Simulate successful connection after 2 seconds
-                setTimeout(() => {
-                    this.accessToken = 'demo_token_' + Date.now();
-                    localStorage.setItem('whoopAccessToken', this.accessToken);
-                    this.showSyncSection();
-                    this.hideError();
-                    this.simulateWHOOPData(); // For demo
-                }, 2000);
+                // this.showError('Demo Mode: WHOOP connection simulated. In production, you would redirect to WHOOP OAuth.');
+                // setTimeout(() => {
+                //     this.accessToken = 'demo_token_' + Date.now();
+                //     localStorage.setItem('whoopAccessToken', this.accessToken);
+                //     this.showSyncSection();
+                //     this.hideError();
+                //     this.simulateWHOOPData(); // For demo
+                // }, 2000);
+                const clientId = 'a12fa42e-08c1-4b22-a512-7ca57e4ff3b4'; // Replace with your WHOOP client ID
+                const redirectUri = window.location.origin + '/api/oauth-callback'; // Your OAuth callback URL
+                const scope = 'read:workout';
+                const oauthUrl = `https://api.prod.whoop.com/oauth/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code`;
+                window.location.href = oauthUrl;
             }
 
             async syncWHOOPData() {
@@ -565,37 +524,30 @@
                     this.showError('Not connected to WHOOP. Please connect first.');
                     return;
                 }
-
                 const syncButton = document.getElementById('syncButton');
                 syncButton.disabled = true;
                 syncButton.textContent = '🔄 Syncing...';
-
                 try {
-                    // Initial sync: get last 30 days of data
+                    // In a real application, you would make an API call to your backend to fetch data from WHOOP
                     await this.fetchWHOOPWorkouts();
-                    
-                    // Setup webhook subscription for real-time updates
-                    await this.setupWHOOPWebhook();
-                    
-                    localStorage.setItem('lastWhoopSync', new Date().toISOString());
-                    this.showSyncSection();
+                    const now = new Date();
+                    localStorage.setItem('lastWhoopSync', now.toISOString());
+                    document.getElementById('lastSync').textContent = `Last synced: ${now.toLocaleTimeString()}`;
                     this.updateDisplay();
-                    this.hideError();
-                    
                 } catch (error) {
-                    this.showError(`Sync failed: ${error.message}`);
+                    this.showError(`Error syncing WHOOP data: ${error.message}`);
                 } finally {
                     syncButton.disabled = false;
-                    syncButton.textContent = '🔄 Sync WHOOP Data';
+                    syncButton.textContent = 'Sync WHOOP Data';
                 }
             }
 
-            async setupWHOOPWebhook() {
-                // Setup webhook subscription for real-time workout updates
+            async setupWebhook() {
+                if (!this.accessToken) return;
                 try {
                     const webhookUrl = `${window.location.origin}/webhook`; // Your webhook endpoint
-                    
-                    const response = await fetch('https://api.prod.whoop.com/developer/v1/webhook', {
+                    const response = await fetch('https://api.prod.whoop.com/developer/v1/webhook', 
+                    {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${this.accessToken}`,
@@ -607,198 +559,83 @@
                             event_types: ['workout.updated', 'workout.created']
                         })
                     });
-
                     if (response.ok) {
                         const webhook = await response.json();
                         localStorage.setItem('whoopWebhookId', webhook.id);
-                        console.log('Webhook setup successful:', webhook.id);
+                        console.log('Webhook setup successful');
+                    } else {
+                        throw new Error(`Webhook setup failed: ${response.status}`);
                     }
                 } catch (error) {
-                    console.log('Webhook setup failed (fallback to polling):', error);
-                    // Fallback to periodic polling if webhook fails
-                    this.setupPeriodicSync();
+                    this.showError(`Webhook setup error: ${error.message}`);
                 }
             }
 
-            setupPeriodicSync() {
-                // Fallback: Poll every 15 minutes for new workouts
-                if (this.syncInterval) clearInterval(this.syncInterval);
-                
-                this.syncInterval = setInterval(async () => {
-                    if (this.accessToken) {
-                        try {
-                            await this.fetchRecentWorkouts(); // Only fetch last few hours
-                        } catch (error) {
-                            console.log('Background sync failed:', error);
-                        }
-                    }
-                }, 15 * 60 * 1000); // 15 minutes
-            }
-
             async fetchRecentWorkouts() {
-                // Fetch workouts from last 24 hours only (for background updates)
+                const corsProxy = 'https://corsproxy.io/?';
                 const endDate = new Date().toISOString();
                 const startDate = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-                
                 const response = await fetch(
-                    `https://api.prod.whoop.com/developer/v1/activity/workout?start=${startDate}&end=${endDate}`, 
+                    corsProxy + `https://api.prod.whoop.com/developer/v1/activity/workout?start=${startDate}&end=${endDate}`,
                     {
                         headers: { 'Authorization': `Bearer ${this.accessToken}` }
                     }
                 );
-                
                 if (response.ok) {
                     const data = await response.json();
                     const newWorkouts = data.records.filter(workout => {
                         const dateKey = new Date(workout.start).toISOString().split('T')[0];
                         return !this.whoopData[dateKey]; // Only new workouts
                     });
-                    
                     if (newWorkouts.length > 0) {
                         this.processWHOOPWorkouts(newWorkouts);
-                        this.updateDisplay();
-                        this.showWorkoutNotification(newWorkouts.length);
+                        this.showWorkoutNotification(newWorkouts.length, newWorkouts[0].score.strain);
                     }
                 }
             }
-
-            handleWebhookWorkout(workoutData) {
-                // Process real-time webhook workout data
-                console.log('Received webhook workout:', workoutData);
-                
-                const dateKey = new Date(workoutData.start).toISOString().split('T')[0];
-                const duration = (new Date(workoutData.end) - new Date(workoutData.start)) / (1000 * 60);
-                const strain = workoutData.score?.strain || 0;
-                
-                // Check if workout meets criteria
-                if (strain >= this.settings.minStrain && duration >= this.settings.minDuration) {
-                    this.whoopData[dateKey] = {
-                        strain: strain,
-                        duration: duration,
-                        sport_id: workoutData.sport_id,
-                        auto_detected: true,
-                        real_time: true
-                    };
-                    
-                    this.saveData();
-                    this.updateDisplay();
-                    this.showWorkoutNotification(1, strain);
-                }
-            }
-
-            showWorkoutNotification(count, strain = null) {
-                if (count === 1 && strain) {
-                    this.showNotification(`🔥 New workout detected! Strain: ${strain.toFixed(1)}`);
-                } else {
-                    this.showNotification(`🔥 ${count} new workouts detected!`);
-                }
-            }
-
-            showNotification(message) {
-                // Show browser notification if permission granted
-                if (Notification.permission === 'granted') {
-                    new Notification('WHOOP Workout Tracker', {
-                        body: message,
-                        icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIGZpbGw9IiNGRjZCMzUiLz4gPC9zdmc+'
-                    });
-                }
-                
-                // Also show in-app notification
-                const notification = document.createElement('div');
-                notification.style.cssText = `
-                    position: fixed; top: 20px; right: 20px; z-index: 1000;
-                    background: #10B981; color: white; padding: 15px 20px;
-                    border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                    animation: slideIn 0.3s ease-out;
-                `;
-                notification.textContent = message;
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.remove();
-                }, 4000);
-            }
-
+            
             async fetchWHOOPWorkouts() {
-                // Real implementation would look like this:
-                /*
+                const corsProxy = 'https://corsproxy.io/?';
                 const endDate = new Date().toISOString();
                 const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-                
-                const response = await fetch(`https://api.prod.whoop.com/developer/v1/activity/workout?start=${startDate}&end=${endDate}`, {
+                const response = await fetch(corsProxy + `https://api.prod.whoop.com/developer/v1/activity/workout?start=${startDate}&end=${endDate}`, {
                     headers: {
                         'Authorization': `Bearer ${this.accessToken}`
                     }
                 });
-                
                 if (!response.ok) {
                     throw new Error(`WHOOP API error: ${response.status}`);
                 }
-                
                 const data = await response.json();
                 this.processWHOOPWorkouts(data.records);
-                */
-
-                // For demo, we'll simulate some workout data
-                this.simulateWHOOPData();
-            }
-
-            simulateWHOOPData() {
-                // Simulate WHOOP workout data for demo purposes
-                const today = new Date();
-                const workouts = [];
-                
-                for (let i = 0; i < 30; i++) {
-                    const date = new Date(today);
-                    date.setDate(today.getDate() - i);
-                    
-                    // Randomly generate some workouts
-                    if (Math.random() > 0.6) {
-                        const strain = 5 + Math.random() * 15; // 5-20 strain
-                        const duration = 15 + Math.random() * 90; // 15-105 minutes
-                        
-                        workouts.push({
-                            start: date.toISOString(),
-                            end: new Date(date.getTime() + duration * 60000).toISOString(),
-                            score: {
-                                strain: strain
-                            },
-                            sport_id: Math.floor(Math.random() * 5), // Random sport
-                            duration_minutes: duration
-                        });
-                    }
-                }
-                
-                this.processWHOOPWorkouts(workouts);
             }
 
             processWHOOPWorkouts(workouts) {
                 workouts.forEach(workout => {
                     const date = new Date(workout.start);
                     const dateKey = date.toISOString().split('T')[0];
-                    
-                    const duration = workout.duration_minutes || 
-                        (new Date(workout.end) - new Date(workout.start)) / (1000 * 60);
-                    
+                    const duration = workout.duration_minutes || (new Date(workout.end) - new Date(workout.start)) / (1000 * 60);
                     const strain = workout.score?.strain || 0;
-                    
-                    // Check if workout meets criteria
+
                     const meetsStrain = strain >= this.settings.minStrain;
                     const meetsDuration = duration >= this.settings.minDuration;
+                    const isAuto = workout.source === 'auto';
+                    const isManual = workout.source === 'manual';
+
+                    if (this.settings.requireManual && !isManual) return;
+                    if (!this.settings.includeAuto && isAuto) return;
                     
                     if (meetsStrain && meetsDuration) {
                         this.whoopData[dateKey] = {
                             strain: strain,
                             duration: duration,
-                            sport_id: workout.sport_id,
-                            auto_detected: true
+                            auto: isAuto,
+                            manual: isManual
                         };
                     }
                 });
-                
                 this.saveData();
             }
-
             getTodayKey() {
                 return new Date().toISOString().split('T')[0];
             }
@@ -965,20 +802,59 @@
         // Initialize the app
         new WHOOPWorkoutTracker();
 
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('data:application/javascript;base64,Y29uc3QgQ0FDSEVfTkFNRSA9ICd3aG9vcC13b3Jrb3V0LXRyYWNrZXItdjEnOwpjb25zdCBVUkxTX1RPX0NBQ0hFID0gWwogICcvJwpdOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZXZlbnQgPT4gewogIGV2ZW50LndhaXRVbnRpbCgKICAgIGNhY2hlcy5vcGVuKENBQ0hFX05BTUUpCiAgICAgIC50aGVuKGNhY2hlID0+IGNhY2hlLmFkZEFsbChVUkxTX1RPX0NBQ0hFKSkKICApOwp9KTsKCnNlbGYuYWRkRXZlbnRMaXN0ZW5lcignZmV0Y2gnLCBldmVudCA9PiB7CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2goZXZlbnQucmVxdWVzdCkKICAgICAgLnRoZW4ocmVzcG9uc2UgPT4gewogICAgICAgIHJldHVybiByZXNwb25zZSB8fCBmZXRjaChldmVudC5yZXF1ZXN0KTsKICAgICAgfSkKICApOwp9KTs=');
-        }
-
-        // Handle OAuth callback (if redirected back from WHOOP)
+        // Handle OAuth callback
         const urlParams = new URLSearchParams(window.location.search);
         const authCode = urlParams.get('code');
         if (authCode) {
-            // In production, exchange code for access token
+            // In production, exchange code for access token via your backend
             console.log('Received auth code:', authCode);
-            // Clean up URL
+            // After exchanging the code for an access token and storing it, clean up the URL
             window.history.replaceState({}, document.title, window.location.pathname);
+            // You might want to automatically trigger a sync here
         }
     </script>
+    <script>
+        const { createClient } = supabase;
+        const supabaseClient = createClient('https://gxnrzlwokuylpweeoapk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4bnJ6bHdva3V5bHB3ZWVvYXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM0NjM1NTUsImV4cCI6MjA2OTAzOTU1NX0.M3l1Q3p7YF7RfCcfo4LyOep41NajjGzKjiwNzP09nyQ');
+      
+        // IMPORTANT: Replace the placeholders above with your actual Supabase URL and Anon Key.
+        // It's safe to expose the anon key in frontend code.
+      
+        // --- 1. Logic to handle the OAuth token from the redirect ---
+        function handleOAuthToken() {
+          if (window.location.hash.includes('access_token')) {
+            const token = window.location.hash.split('=')[1];
+            if (token) {
+              localStorage.setItem('whoopAccessToken', token);
+              console.log('WHOOP Access Token saved.');
+              // Clean the URL so the token doesn't stay there
+              window.location.hash = '';
+              // Reload the app state
+              new WHOOPWorkoutTracker(); 
+            }
+          }
+        }
+      
+        // --- 2. Logic to listen for real-time updates from Supabase ---
+        function listenForRealTimeWorkouts() {
+          console.log('Listening for real-time workout updates from Supabase...');
+          supabaseClient
+            .channel('workouts')
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'workouts' }, (payload) => {
+              console.log('New workout detected via Supabase!', payload.new);
+              const tracker = new WHOOPWorkoutTracker();
+              tracker.showNotification(`🔥 New workout detected! Strain: ${payload.new.strain.toFixed(1)}`);
+              // You can also trigger a full data sync here if needed
+              tracker.syncWHOOPData();
+            })
+            .subscribe();
+        }
+      
+        // Run these functions when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+          handleOAuthToken();
+          listenForRealTimeWorkouts();
+        });
+      </script>
 </body>
 </html>
