@@ -313,6 +313,17 @@
         .hidden {
             display: none;
         }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -593,6 +604,12 @@
             async setupWHOOPWebhook() {
                 // Setup webhook subscription for real-time workout updates
                 try {
+                    // In demo mode, skip webhook setup
+                    if (this.accessToken.startsWith('demo_token_')) {
+                        console.log('Demo mode: Skipping webhook setup');
+                        return;
+                    }
+                    
                     const webhookUrl = `${window.location.origin}/webhook`; // Your webhook endpoint
                     
                     const response = await fetch('https://api.prod.whoop.com/developer/v1/webhook', {
@@ -695,11 +712,20 @@
             }
 
             showNotification(message) {
-                // Show browser notification if permission granted
+                // Request permission first, then show browser notification
                 if (Notification.permission === 'granted') {
                     new Notification('WHOOP Workout Tracker', {
                         body: message,
                         icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIGZpbGw9IiNGRjZCMzUiLz4gPC9zdmc+'
+                    });
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            new Notification('WHOOP Workout Tracker', {
+                                body: message,
+                                icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIGZpbGw9IiNGRjZCMzUiLz4gPC9zdmc+'
+                            });
+                        }
                     });
                 }
                 
@@ -720,27 +746,34 @@
             }
 
             async fetchWHOOPWorkouts() {
-                // Real implementation would look like this:
-                /*
-                const endDate = new Date().toISOString();
-                const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-                
-                const response = await fetch(`https://api.prod.whoop.com/developer/v1/activity/workout?start=${startDate}&end=${endDate}`, {
-                    headers: {
-                        'Authorization': `Bearer ${this.accessToken}`
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`WHOOP API error: ${response.status}`);
+                // Check if we're in demo mode
+                if (this.accessToken.startsWith('demo_token_')) {
+                    // For demo, we'll simulate some workout data
+                    this.simulateWHOOPData();
+                    return;
                 }
-                
-                const data = await response.json();
-                this.processWHOOPWorkouts(data.records);
-                */
 
-                // For demo, we'll simulate some workout data
-                this.simulateWHOOPData();
+                // Real implementation would look like this:
+                try {
+                    const endDate = new Date().toISOString();
+                    const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+                    
+                    const response = await fetch(`https://api.prod.whoop.com/developer/v1/activity/workout?start=${startDate}&end=${endDate}`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.accessToken}`
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`WHOOP API error: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    this.processWHOOPWorkouts(data.records);
+                } catch (error) {
+                    console.log('WHOOP API call failed, using demo data:', error);
+                    this.simulateWHOOPData();
+                }
             }
 
             simulateWHOOPData() {
@@ -965,10 +998,10 @@
         // Initialize the app
         new WHOOPWorkoutTracker();
 
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('data:application/javascript;base64,Y29uc3QgQ0FDSEVfTkFNRSA9ICd3aG9vcC13b3Jrb3V0LXRyYWNrZXItdjEnOwpjb25zdCBVUkxTX1RPX0NBQ0hFID0gWwogICcvJwpdOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZXZlbnQgPT4gewogIGV2ZW50LndhaXRVbnRpbCgKICAgIGNhY2hlcy5vcGVuKENBQ0hFX05BTUUpCiAgICAgIC50aGVuKGNhY2hlID0+IGNhY2hlLmFkZEFsbChVUkxTX1RPX0NBQ0hFKSkKICApOwp9KTsKCnNlbGYuYWRkRXZlbnRMaXN0ZW5lcignZmV0Y2gnLCBldmVudCA9PiB7CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2goZXZlbnQucmVxdWVzdCkKICAgICAgLnRoZW4ocmVzcG9uc2UgPT4gewogICAgICAgIHJldHVybiByZXNwb25zZSB8fCBmZXRjaChldmVudC5yZXF1ZXN0KTsKICAgICAgfSkKICApOwp9KTs=');
-        }
+        // Service Worker Registration (commented out to avoid errors)
+        // if ('serviceWorker' in navigator) {
+        //     navigator.serviceWorker.register('/sw.js').catch(console.log);
+        // }
 
         // Handle OAuth callback (if redirected back from WHOOP)
         const urlParams = new URLSearchParams(window.location.search);
