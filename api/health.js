@@ -2,7 +2,7 @@
 const axios = require('axios/dist/node/axios.cjs');
 const { createClient } = require('@supabase/supabase-js');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const startTime = Date.now();
   console.log('🔧 HealthCheck: Health check requested', {
     method: req.method,

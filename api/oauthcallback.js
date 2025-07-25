@@ -1,7 +1,7 @@
-// /api/oauth-callback.js
+// /api/oauthcallback.js
 const axios = require('axios/dist/node/axios.cjs');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const startTime = Date.now();
   
   try {
@@ -148,8 +148,8 @@ export default async function handler(req, res) {
       console.log('🔧 OAuthCallback: Redirecting to frontend', { 
         redirectUrl: redirectUrl.substring(0, 100) + '...',
         state,
-        tokenType,
-        expiresIn
+        tokenType: token_type,
+        expiresIn: expires_in
       });
       
       const responseTime = Date.now() - startTime;

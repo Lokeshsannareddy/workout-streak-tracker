@@ -4,7 +4,7 @@ const { createClient } = require('@supabase/supabase-js');
 // Initialize the Supabase client
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   console.log('🔧 WebhookHandler: Received webhook request', {
     method: req.method,
     headers: req.headers,
