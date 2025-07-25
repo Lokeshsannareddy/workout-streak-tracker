@@ -513,7 +513,7 @@
                 //     this.simulateWHOOPData(); // For demo
                 // }, 2000);
                 const clientId = 'a12fa42e-08c1-4b22-a512-7ca57e4ff3b4'; // Replace with your WHOOP client ID
-                const redirectUri = window.location.origin + '/api/oauth-callback'; // Your OAuth callback URL
+                const redirectUri = 'https://workout-streak-tracker.vercel.app/api/oauthcallback'; // Your OAuth callback URL
                 const scope = 'read:workout';
                 const oauthUrl = `https://api.prod.whoop.com/oauth/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code`;
                 window.location.href = oauthUrl;
@@ -545,7 +545,7 @@
             async setupWebhook() {
                 if (!this.accessToken) return;
                 try {
-                    const webhookUrl = `${window.location.origin}/webhook`; // Your webhook endpoint
+                    const webhookUrl = `https://workout-streak-tracker.vercel.app/api/webhook-handler`; // Your webhook endpoint
                     const response = await fetch('https://api.prod.whoop.com/developer/v1/webhook', 
                     {
                         method: 'POST',
@@ -858,7 +858,3 @@
       </script>
 </body>
 </html>
-<<<<<<< HEAD
-=======
-!DOCTYPE html>
->>>>>>> d93248b (fixed ai)
