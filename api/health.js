@@ -1,6 +1,6 @@
 // /api/health.js
-import axios from 'axios';
-import { createClient } from '@supabase/supabase-js';
+const axios = require('axios/dist/node/axios.cjs');
+const { createClient } = require('@supabase/supabase-js');
 
 export default async function handler(req, res) {
   const startTime = Date.now();
