@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   // Your application's credentials from environment variables
   const clientId = process.env.WHOOP_CLIENT_ID;
   const clientSecret = process.env.WHOOP_CLIENT_SECRET;
-  const redirectUri = `${process.env.APP_URL}/api/oauth-callback`;
+  const redirectUri = `${process.env.APP_URL}/api/oauthcallback`;
   const tokenUrl = 'https://api.prod.whoop.com/oauth/oauth2/token';
 
   try {
