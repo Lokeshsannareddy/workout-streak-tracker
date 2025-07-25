@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/Lokeshsannareddy/workout-streak-tracker#readme",
   "dependencies": {
-    "@supabase/supabase-js": "^2.52.1"
+    "@supabase/supabase-js": "^2.52.1",
+    "axios": "^1.11.0",
+    "express": "^5.1.0"
   }
 }
