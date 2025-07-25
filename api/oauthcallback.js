@@ -102,9 +102,24 @@ export default async function handler(req, res) {
       });
       
       // Exchange the code for an access token
-      const response = await axios.post(tokenUrl, tokenRequestData, {
+      // WHOOP expects URL-encoded form data, not JSON
+      const formData = new URLSearchParams();
+      formData.append('grant_type', 'authorization_code');
+      formData.append('code', code);
+      formData.append('client_id', clientId);
+      formData.append('client_secret', clientSecret);
+      formData.append('redirect_uri', redirectUri);
+
+      console.log('🔧 OAuthCallback: Sending form data', {
+        grantType: formData.get('grant_type'),
+        codeLength: formData.get('code').length,
+        clientIdLength: formData.get('client_id').length,
+        redirectUri: formData.get('redirect_uri')
+      });
+
+      const response = await axios.post(tokenUrl, formData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
         timeout: 10000 // 10 second timeout
       });
