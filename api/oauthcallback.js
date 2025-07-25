@@ -2,11 +2,15 @@
 import axios from 'axios';
 
 export default async function handler(req, res) {
-  // Get the authorization code from the query parameters
-  const { code } = req.query;
+  // Get the authorization code and state from the query parameters
+  const { code, state } = req.query;
 
   if (!code) {
     return res.status(400).send('Error: No authorization code provided.');
+  }
+
+  if (!state) {
+    return res.status(400).send('Error: No state parameter provided.');
   }
 
   // Your application's credentials from environment variables
@@ -31,9 +35,9 @@ export default async function handler(req, res) {
 
     const { access_token } = response.data;
 
-    // Redirect the user back to the main page, passing the token in the URL hash.
-    // The frontend will grab the token from the hash, save it, and clean the URL.
-    res.redirect(`${process.env.APP_URL}#access_token=${access_token}`);
+    // Redirect the user back to the main page, passing the token and state in the URL hash.
+    // The frontend will validate the state and grab the token from the hash, save it, and clean the URL.
+    res.redirect(`${process.env.APP_URL}#access_token=${access_token}&state=${state}`);
 
   } catch (error) {
     console.error('Error exchanging authorization code:', error.response ? error.response.data : error.message);
