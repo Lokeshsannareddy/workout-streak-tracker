@@ -934,7 +934,7 @@
         }
 
         // Initialize the app
-        new WHOOPWorkoutTracker();
+        window.tracker = new WHOOPWorkoutTracker();
 
         // Handle OAuth callback - this is now handled by the backend callback
         // The backend exchanges the code for a token and redirects with the token in the hash
@@ -984,10 +984,14 @@
               
               // Clean the URL so the token doesn't stay there
               window.location.hash = '';
-              console.log('🔧 handleOAuthToken: URL hash cleaned, reloading app state');
+              console.log('🔧 handleOAuthToken: URL hash cleaned, updating existing tracker');
               
-              // Reload the app state
-              new WHOOPWorkoutTracker(); 
+              // Update the existing tracker instance with the new token
+              if (window.tracker) {
+                window.tracker.accessToken = token;
+                window.tracker.showSyncSection();
+                console.log('🔧 handleOAuthToken: Updated existing tracker with new token');
+              } 
             } else {
               console.log('🔧 handleOAuthToken: No token found in hash parameters');
             }
@@ -1003,10 +1007,11 @@
             .channel('workouts')
             .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'workouts' }, (payload) => {
               console.log('🔧 listenForRealTimeWorkouts: New workout detected via Supabase!', payload.new);
-              const tracker = new WHOOPWorkoutTracker();
-              tracker.showNotification(`🔥 New workout detected! Strain: ${payload.new.strain.toFixed(1)}`);
-              // You can also trigger a full data sync here if needed
-              tracker.syncWHOOPData();
+              if (window.tracker) {
+                window.tracker.showNotification(`🔥 New workout detected! Strain: ${payload.new.strain.toFixed(1)}`);
+                // You can also trigger a full data sync here if needed
+                window.tracker.syncWHOOPData();
+              }
             })
             .subscribe((status) => {
               console.log('🔧 listenForRealTimeWorkouts: Supabase subscription status:', status);
