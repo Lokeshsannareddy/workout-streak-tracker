@@ -805,16 +805,8 @@
         // Initialize the app
         new WHOOPWorkoutTracker();
 
-        // Handle OAuth callback
-        const urlParams = new URLSearchParams(window.location.search);
-        const authCode = urlParams.get('code');
-        if (authCode) {
-            // In production, exchange code for access token via your backend
-            console.log('Received auth code:', authCode);
-            // After exchanging the code for an access token and storing it, clean up the URL
-            window.history.replaceState({}, document.title, window.location.pathname);
-            // You might want to automatically trigger a sync here
-        }
+        // Handle OAuth callback - this is now handled by the backend callback
+        // The backend exchanges the code for a token and redirects with the token in the hash
     </script>
     <script>
         const { createClient } = supabase;
@@ -826,9 +818,23 @@
         // --- 1. Logic to handle the OAuth token from the redirect ---
         function handleOAuthToken() {
           if (window.location.hash.includes('access_token')) {
-            const token = window.location.hash.split('=')[1];
+            // Parse the hash to get both token and state
+            const hashParams = new URLSearchParams(window.location.hash.substring(1));
+            const token = hashParams.get('access_token');
+            const returnedState = hashParams.get('state');
+            const storedState = localStorage.getItem('oauth_state');
+            
             if (token) {
+              // Validate the state parameter to prevent CSRF attacks
+              if (returnedState !== storedState) {
+                console.error('OAuth state mismatch. Possible CSRF attack.');
+                alert('Authentication failed: State mismatch. Please try again.');
+                window.location.hash = '';
+                return;
+              }
+              
               localStorage.setItem('whoopAccessToken', token);
+              localStorage.removeItem('oauth_state'); // Clean up the state
               console.log('WHOOP Access Token saved.');
               // Clean the URL so the token doesn't stay there
               window.location.hash = '';
