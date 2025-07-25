@@ -1,5 +1,5 @@
 // /api/test.js
-import axios from 'axios';
+const axios = require('axios/dist/node/axios.cjs');
 
 export default async function handler(req, res) {
   const startTime = Date.now();
